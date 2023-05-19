@@ -1,7 +1,5 @@
-import "../styles/globals.css";
-
 export const metadata = {
-  title: "The Election App",
+  title: "The Election App - Sign Up",
   description: "A simple app to create, host and participate on elections.",
 };
 
