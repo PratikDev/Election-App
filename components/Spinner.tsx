@@ -1,32 +1,32 @@
 import { FC } from "react";
 
-interface ThemeColors {
-  dark: string;
-  light: string;
-}
-
 interface SpinnerProps {
   size: number;
   srText: string;
-  trackColor: ThemeColors;
-  wheelColor: ThemeColors;
+  mr?: boolean;
+  ml?: boolean;
 }
 
-const Spinner: FC<SpinnerProps> = ({
-  size,
-  srText,
-  trackColor: { dark: trackDark, light: trackLight },
-  wheelColor: { dark: wheelDark, light: wheelLight },
-}) => {
-  const width = `w-${size}`;
-  const height = `h-${size}`;
+const Spinner: FC<SpinnerProps> = ({ size, srText, ml, mr }) => {
+  const sizeVariants: {
+    [key: number]: string;
+  } = {
+    4: `w-4 h-4`,
+    6: `w-6 h-6`,
+    8: `w-8 h-8`,
+    10: `w-10 h-10`,
+    12: `w-12 h-12`,
+    16: `w-16 h-16`,
+  };
 
   return (
     <>
       <div role="status">
         <svg
           aria-hidden="true"
-          className={`inline ${width} ${height} animate-spin text-${trackLight} dark:text-${trackDark} fill-${wheelLight} dark:fill-${wheelDark}`}
+          className={`inline ${sizeVariants[size]} ${mr ? `mr-2` : ``} ${
+            ml ? `mr-2` : ``
+          } animate-spin text-gray-200 dark:text-gray-600 fill-gray-600 dark:fill-gray-300`}
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg">

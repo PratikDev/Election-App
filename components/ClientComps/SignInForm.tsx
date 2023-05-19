@@ -114,22 +114,14 @@ const SignInForm: FC = () => {
             type="submit"
             disabled={!!isSubmitting}
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50">
-            {isSubmitting ? (
+            {isSubmitting && (
               <Spinner
-                size={6}
+                size={4}
                 srText="Creating"
-                trackColor={{
-                  dark: `gray-600`,
-                  light: `gray-200`,
-                }}
-                wheelColor={{
-                  dark: `gray-300`,
-                  light: `gray-600`,
-                }}
+                ml
               />
-            ) : (
-              "Sign In"
             )}
+            Sign In
           </button>
         </div>
       </form>

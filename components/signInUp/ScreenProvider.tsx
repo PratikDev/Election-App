@@ -8,6 +8,8 @@ interface ScreenProviderProps {
 const ScreenProvider: FC<ScreenProviderProps> = ({ children }) => {
   return (
     <div className="h-screen flex gap-4 items-center justify-around px-4">
+      {children}
+
       <div className="hidden md:block relative w-1/2 h-[700px] min-w-[450px]">
         <Image
           src={`/election.svg`}
@@ -16,8 +18,6 @@ const ScreenProvider: FC<ScreenProviderProps> = ({ children }) => {
           priority
         />
       </div>
-
-      {children}
     </div>
   );
 };

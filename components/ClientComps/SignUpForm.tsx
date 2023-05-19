@@ -116,6 +116,7 @@ const SignUpForm: FC = () => {
           label="First Name"
           name="first_name"
           placeholder="John"
+          autoComplete="given-name"
           required
           type="text"
         />
@@ -125,6 +126,7 @@ const SignUpForm: FC = () => {
           label="Last Name"
           name="last_name"
           placeholder="Doe"
+          autoComplete="family-name"
           required
           type="text"
         />
@@ -134,6 +136,7 @@ const SignUpForm: FC = () => {
           label="Email Address"
           name="email"
           placeholder="john.doe@example.com"
+          autoComplete="email"
           required
           type="email"
         />
@@ -144,6 +147,7 @@ const SignUpForm: FC = () => {
           label="Password"
           name="password"
           placeholder="******"
+          autoComplete="new-password"
           minLength={8}
           required
         />
@@ -153,6 +157,7 @@ const SignUpForm: FC = () => {
           id="confirm_password"
           label="Confirm Password"
           name="confirm_password"
+          autoComplete="new-password"
           placeholder="******"
           minLength={8}
           required
@@ -175,14 +180,6 @@ const SignUpForm: FC = () => {
               <Spinner
                 size={6}
                 srText="Creating"
-                trackColor={{
-                  dark: `gray-600`,
-                  light: `gray-200`,
-                }}
-                wheelColor={{
-                  dark: `gray-300`,
-                  light: `gray-600`,
-                }}
               />
             ) : (
               "Create"
