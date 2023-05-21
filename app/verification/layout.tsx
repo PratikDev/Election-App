@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "The Election App - Sign Up",
+  title: "The Election App - Signing In",
   description: "A simple app to create, host and participate on elections.",
 };
 

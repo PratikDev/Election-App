@@ -1,13 +1,16 @@
 // reactjs imports
 import { FC } from "react";
 
-import ScreenProvider from "@/components/signInUp/ScreenProvider";
+// nextjs imports
+import Image from "next/image";
+
+// components imports
 import SignInForm from "@/components/ClientComps/SignInForm";
 
 const SignIn: FC = () => {
   return (
     <>
-      <ScreenProvider>
+      <div className="h-screen flex gap-4 items-center justify-around px-4">
         <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700   w-full sm:max-w-md py-4 sm:py-6 lg:py-8 px-4 shadow rounded-lg sm:px-6 lg:px-10">
           <SignInForm />
 
@@ -84,7 +87,16 @@ const SignIn: FC = () => {
             </div>
           </div>
         </div>
-      </ScreenProvider>
+
+        <div className="hidden md:block relative w-1/2 h-[700px] min-w-[450px]">
+          <Image
+            src={`/election.svg`}
+            alt="Election App - Sign In"
+            fill
+            priority
+          />
+        </div>
+      </div>
     </>
   );
 };
