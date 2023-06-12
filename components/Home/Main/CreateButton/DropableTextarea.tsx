@@ -88,9 +88,9 @@ const DropableTextarea: FC<Props> = ({ setFormData, onChange }) => {
               /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
             if (value && emailRegex.test(value)) return value;
 
-            return undefined;
+            return ``;
           })
-          .filter((value) => value !== undefined);
+          .filter((value) => value);
 
         const { default: emailListValidity } = await import(
           "./shared_functions/emailListValidity"
@@ -166,11 +166,10 @@ const DropableTextarea: FC<Props> = ({ setFormData, onChange }) => {
       <div>
         <label
           htmlFor="voters"
-          className="flex items-center gap-1 text-sm font-medium text-gray-700">
+          className="flex items-center gap-1 text-sm font-medium text-gray-700 dark:text-gray-300">
           <span>Type Voters Emails or Drag & Drop a CSV file (Max 1000)*</span>
 
           <Question
-            noDark
             message={
               <>
                 Only the first column from the CSV file is considered for the
@@ -184,7 +183,7 @@ const DropableTextarea: FC<Props> = ({ setFormData, onChange }) => {
           {uploadingEmails && (
             <div
               role="status"
-              className="absolute top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
+              className="absolute z-10 top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
               <svg
                 aria-hidden="true"
                 className="inline w-8 h-8 animate-spin text-gray-400 fill-indigo-600"
@@ -217,7 +216,28 @@ const DropableTextarea: FC<Props> = ({ setFormData, onChange }) => {
             rows={7}
             required
             placeholder={`john@example.com\rjohn@doe.com\rdoe@john.com\rjohn.doe@gmail.com`}
-            className="appearance-none block w-full p-2 px-3 border border-gray-300 disabled:border-gray-200 rounded-md shadow-sm placeholder-gray-400 disabled:placeholder-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="appearance-none
+            block
+            w-full
+            dark:bg-gray-800
+            border
+            border-gray-300
+            disabled:border-gray-200
+            dark:border-gray-700
+            disabled:dark:border-gray-700
+            rounded-md
+            shadow-sm
+            placeholder-gray-400
+            disabled:placeholder-gray-300
+            dark:placeholder-gray-500
+            disabled:dark:placeholder-gray-700
+            dark:text-gray-200
+            focus:outline-none
+            focus:ring-indigo-500
+            focus:border-indigo-500
+            sm:text-sm
+            p-2
+            px-3"
             disabled={uploadingEmails}
           />
         </div>

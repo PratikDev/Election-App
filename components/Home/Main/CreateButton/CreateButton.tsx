@@ -16,7 +16,7 @@ function handleModalToggle(setIsShowing: Dispatch<SetStateAction<Boolean>>) {
   setIsShowing((isShowing) => !isShowing);
 }
 
-const Form: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
+const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
   setIsShowing,
 }) => {
   const [isMulti, setIsMulti] = useState(false);
@@ -89,7 +89,7 @@ const Form: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
       return;
     }
 
-    const voter_array = voters.split("\n");
+    const voter_array = voters.split("\n").filter((list) => list);
 
     const { default: emailListValidity } = await import(
       "./shared_functions/emailListValidity"
@@ -106,7 +106,7 @@ const Form: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
         html: message.text,
       });
 
-      // if function should be terminated
+      // if program should be terminated
       if (message.shouldTerminate) return;
     }
 
@@ -162,170 +162,6 @@ const Form: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
   }
 
   return (
-    <>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4 mt-3 w-100">
-        <div>
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700">
-            Election Title*
-          </label>
-
-          <div className="mt-1">
-            <input
-              onChange={handleChange}
-              id="title"
-              name="title"
-              minLength={10}
-              maxLength={150}
-              placeholder="Give a title to your election"
-              required
-              type="text"
-              className="appearance-none block w-full p-2 px-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-700">
-            Election Description*
-          </label>
-
-          <div className="mt-1">
-            <textarea
-              onChange={handleChange}
-              id="description"
-              name="description"
-              rows={4}
-              required
-              minLength={10}
-              maxLength={2000}
-              placeholder="Write something about the election"
-              className="appearance-none block w-full p-2 px-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-        </div>
-
-        <div>
-          <div className="flex items-center gap-4 w-100">
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                onChange={() => setIsMulti((prev) => !prev)}
-                type="checkbox"
-                name="isMulti"
-                id="isMulti"
-                className="sr-only peer"
-              />
-              <div
-                className="w-9
-                          h-5
-                          peer
-                          bg-gray-200
-                          border
-                          border-gray-300
-                          peer-focus:outline-none
-                          rounded-full
-                          peer-checked:after:translate-x-full
-                          peer-checked:after:border-white 
-                          after:content-['']
-                          after:absolute
-                          after:top-[2px]
-                          after:left-[2px]
-                          after:bg-white
-                          after:border-gray-400
-                          after:border
-                          after:rounded-full
-                          after:h-4
-                          after:w-4
-                          after:transition-all
-                          peer-checked:bg-indigo-500"></div>
-
-              <div className="flex items-center gap-1">
-                <span className="ml-3 text-sm font-medium text-gray-900">
-                  Multi Choice Voting
-                </span>
-                {isMulti && (
-                  <Question
-                    noDark
-                    message={
-                      <>
-                        <strong>REMEMBER</strong>: This value can&apos;t be
-                        greater than the total candidates of your Election or
-                        vice-versa. Total candidates can be maximum of 20 per
-                        Election
-                      </>
-                    }
-                  />
-                )}
-              </div>
-            </label>
-
-            {isMulti && (
-              <div className="grow">
-                <input
-                  onChange={handleChange}
-                  type="number"
-                  id="number_of_choices"
-                  name="number_of_choices"
-                  min={2}
-                  max={20}
-                  placeholder="Number of selections a voter can make"
-                  required={isMulti}
-                  className="appearance-none block w-full p-2 px-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-            )}
-          </div>
-        </div>
-
-        <DropableTextarea
-          setFormData={setFormData}
-          onChange={handleChange}
-        />
-
-        <div>
-          <button
-            type="submit"
-            disabled={creatingElection}
-            className="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 focus:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 outline-none disabled:opacity-75 text-white px-3 py-1.5 rounded-md float-right">
-            {creatingElection && (
-              <div
-                role="status"
-                className="flex">
-                <svg
-                  aria-hidden="true"
-                  className="inline w-4 h-4 text-gray-500 animate-spin fill-gray-100"
-                  viewBox="0 0 100 101"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                    fill="currentFill"
-                  />
-                </svg>
-                <span className="sr-only">Loading...</span>
-              </div>
-            )}
-            <span>Create</span>
-          </button>
-        </div>
-      </form>
-    </>
-  );
-};
-
-const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
-  setIsShowing,
-}) => {
-  return (
     <div
       onClick={(e) => {
         if (e.target === e.currentTarget) {
@@ -333,14 +169,256 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
         }
       }}
       className="clickable grid place-items-center fixed top-0 left-0 z-20 w-screen h-screen bg-black/25 backdrop-blur-sm text-gray-900">
-      <div className="flex flex-col justify-between gap-2 w-4/5 sm:w-1/2 rounded-md bg-white p-4 px-6">
+      <div
+        className="flex
+      flex-col
+      justify-between
+      gap-2
+      w-4/5
+      sm:w-1/2
+      rounded-md
+      bg-gray-100
+      dark:bg-slate-800
+      border
+      border-gray-300
+      dark:border-gray-700
+      text-gray-900
+      dark:text-white
+      shadow-lg
+      p-4
+      px-6">
         <div>
           <h1 className="text-xl sm:text-2xl font-medium">
             Create Your Election
           </h1>
         </div>
 
-        <Form setIsShowing={setIsShowing} />
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4 mt-3 w-100">
+          <div>
+            <label
+              htmlFor="title"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Election Title*
+            </label>
+
+            <div className="mt-1">
+              <input
+                onChange={handleChange}
+                id="title"
+                name="title"
+                minLength={10}
+                maxLength={150}
+                placeholder="Give a title to your election"
+                required
+                type="text"
+                className="appearance-none
+                block
+                w-full
+                dark:bg-gray-800
+                border
+                border-gray-300
+                dark:border-gray-700
+                rounded-md
+                shadow-sm
+                placeholder-gray-400
+                dark:placeholder-gray-500
+                dark:text-gray-200
+                focus:outline-none
+                focus:ring-indigo-500
+                focus:border-indigo-500
+                sm:text-sm
+                p-2
+                px-3"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Election Description*
+            </label>
+
+            <div className="mt-1">
+              <textarea
+                onChange={handleChange}
+                id="description"
+                name="description"
+                rows={4}
+                required
+                minLength={10}
+                maxLength={2000}
+                placeholder="Write something about the election"
+                className="appearance-none
+                block
+                w-full
+                dark:bg-gray-800
+                border
+                border-gray-300
+                dark:border-gray-700
+                rounded-md
+                shadow-sm
+                placeholder-gray-400
+                dark:placeholder-gray-500
+                dark:text-gray-200
+                focus:outline-none
+                focus:ring-indigo-500
+                focus:border-indigo-500
+                sm:text-sm
+                p-2
+                px-3"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-4 w-100">
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  onChange={() => setIsMulti((prev) => !prev)}
+                  type="checkbox"
+                  name="isMulti"
+                  id="isMulti"
+                  className="sr-only peer"
+                />
+                <div
+                  className="w-9
+                          h-5
+                          peer
+                          bg-gray-200
+                          dark:bg-gray-700
+                          border
+                          border-gray-300
+                          dark:border-gray-500
+                          peer-focus:outline-none
+                          rounded-full
+                          peer-checked:after:translate-x-full
+                          peer-checked:after:border-white
+                          peer-checked:after:bg-white
+                          peer-checked:bg-indigo-500
+                          after:content-['']
+                          after:absolute
+                          after:top-[2px]
+                          after:left-[2px]
+                          after:bg-white
+                          after:dark:bg-gray-300
+                          after:border-gray-400
+                          after:border
+                          after:rounded-full
+                          after:h-4
+                          after:w-4
+                          after:transition-all"></div>
+
+                <div className="flex items-center gap-1">
+                  <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Multi Choice Voting
+                  </span>
+
+                  {isMulti && (
+                    <Question
+                      message={
+                        <>
+                          <strong>REMEMBER</strong>: This value can&apos;t be
+                          greater than the total candidates of your Election or
+                          vice-versa. Total candidates can be maximum of 20 per
+                          Election
+                        </>
+                      }
+                    />
+                  )}
+                </div>
+              </label>
+
+              {isMulti && (
+                <div className="grow">
+                  <input
+                    onChange={handleChange}
+                    type="number"
+                    id="number_of_choices"
+                    name="number_of_choices"
+                    min={2}
+                    max={20}
+                    placeholder="Number of selections a voter can make"
+                    required={isMulti}
+                    className="appearance-none
+                    block
+                    w-full
+                    dark:bg-gray-800
+                    border
+                    border-gray-300
+                    dark:border-gray-700
+                    rounded-md
+                    shadow-sm
+                    placeholder-gray-400
+                    dark:placeholder-gray-500
+                    dark:text-gray-200
+                    focus:outline-none
+                    focus:ring-indigo-500
+                    focus:border-indigo-500
+                    sm:text-sm
+                    p-2
+                    px-3"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          <DropableTextarea
+            setFormData={setFormData}
+            onChange={handleChange}
+          />
+
+          <div>
+            <button
+              type="submit"
+              disabled={creatingElection}
+              className="flex
+              items-center
+              gap-1
+              bg-indigo-600
+              hover:bg-indigo-700
+              focus:bg-indigo-700
+              focus:ring-4
+              focus:ring-indigo-300
+              dark:focus:ring-indigo-500
+              outline-none
+              disabled:opacity-75
+              text-white
+              px-3
+              py-1.5
+              rounded-md
+              float-right">
+              {creatingElection && (
+                <div
+                  role="status"
+                  className="flex">
+                  <svg
+                    aria-hidden="true"
+                    className="inline w-4 h-4 text-gray-500 animate-spin fill-gray-100"
+                    viewBox="0 0 100 101"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                      fill="currentFill"
+                    />
+                  </svg>
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
+
+              <span>Create</span>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
