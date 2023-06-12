@@ -75,7 +75,13 @@ const handleSubmit = async ({
     const { account } = await import("@/appwrite/appwrite-config");
     const { ID } = await import("appwrite");
 
-    await account.createMagicURLSession(ID.unique(), email);
+    const origin = location.origin;
+
+    await account.createMagicURLSession(
+      ID.unique(),
+      email,
+      `${origin}/verification`
+    );
 
     alert("A magic link has been sent to your email. Please check your inbox.");
   } catch (error) {

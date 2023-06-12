@@ -7,6 +7,8 @@ const projectID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
 client.setEndpoint(endPoint).setProject(projectID);
 
-export const account = new Account(client);
+const account = new Account(client);
 
-export const databases = new Databases(client);
+const databases = new Databases(client);
+
+export { account, databases };
