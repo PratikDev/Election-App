@@ -1,4 +1,8 @@
+// sweetalert icons import
 import { SweetAlertIcon } from "sweetalert2";
+
+// helper functions imports
+import isEmailValidRegex from "@/helpers/emailFormateValidation";
 
 /**
  * 
@@ -30,10 +34,9 @@ import { SweetAlertIcon } from "sweetalert2";
 
     // validate voter emails
     for (const voter of firstColumnDataSet_unique) {
-        const emailRegex =
-          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        const valid = isEmailValidRegex(voter);
   
-        if (!emailRegex.test(voter)) {
+        if (!valid) {
           returnableData.message.text = `<p style="font-size: 0.8rem">Invalid email: <span style="padding: 0.1rem 0.25rem; background-color: #d1d5db; border-radius: 0.25rem; font-weight: 500;">${voter}</span><br/>Please make sure if all emails are valid & separated by line breaks</p>`;
           returnableData.message.shouldTerminate = true;
           returnableData.message.complexity = `error`;

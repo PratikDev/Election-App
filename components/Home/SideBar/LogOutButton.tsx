@@ -14,11 +14,7 @@ const handleLogout = async ({
   try {
     setLoggingOut(true);
 
-    const { account } = await import(`@/appwrite/appwrite-config`);
-
-    await account.deleteSession("current");
-
-    location.href = "/signin";
+    alert("You have been logged out");
   } catch (error) {
     console.log(error);
   } finally {

@@ -1,8 +1,8 @@
 // style imports
 import "@/styles/globals.css";
 
-// components imports
-import HomePage from "@/components/ClientComps/HomePage";
+// auth checker component import
+import AuthChecker from "@/components/ClientComps/AuthChecker";
 
 export const metadata = {
   title: "The Election App",
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-100 dark:bg-gray-900 dark:text-white">
-        <HomePage />
+        <AuthChecker />
 
         {children}
       </body>

@@ -117,31 +117,31 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
     try {
       setCreatingElection(true);
 
-      const { databases } = await import("@/appwrite/appwrite-config");
-      const { database_id, election_collection_id } = await import(
-        "@/appwrite/appwrite-IDs"
+      const { auth } = await import("@/firebase/firebase-config");
+      const user = auth.currentUser;
+
+      // if user is not logged in
+      if (!user) throw new Error("User not found");
+
+      const { db } = await import("@/firebase/firebase-config");
+      const { collection, addDoc, serverTimestamp } = await import(
+        "firebase/firestore/lite"
       );
-      const { ID } = await import("appwrite");
-      const { uid } = await import("@/helpers/uid");
 
       const storableData = {
-        title,
-        description,
-        number_of_choices,
+        ...formData,
+        number_of_choices: isMulti ? number_of_choices : 1,
         voters: voter_array_unique,
-        uid: uid(25),
+        creator: user.uid,
+        valid: false,
+        created_at: serverTimestamp(),
       };
 
-      await databases.createDocument(
-        database_id,
-        election_collection_id,
-        ID.unique(),
-        storableData
-      );
-
-      handleModalToggle(setIsShowing);
+      await addDoc(collection(db, "elections"), storableData);
 
       const { default: Swal } = await import("sweetalert2");
+
+      handleModalToggle(setIsShowing);
 
       Swal.fire({
         icon: "success",
@@ -388,6 +388,8 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
               outline-none
               disabled:opacity-75
               text-white
+              text-sm
+              font-medium
               px-3
               py-1.5
               rounded-md

@@ -3,31 +3,34 @@
 // reactjs imports
 import { FC, FormEvent, useState } from "react";
 
-// appwrite imports
-import { AppwriteException } from "appwrite";
-
 // components imports
 import Spinner from "@/components/Spinner";
 
-const validation = (
-  form: HTMLFormElement
-): {
+type ValidationType = {
   status: boolean;
   message: string;
-} => {
+};
+
+const validation = async (email: string): Promise<ValidationType> => {
   const result = {
     status: false,
     message: "",
   };
 
-  const {
-    email: { value: email },
-  }: {
-    [key: string]: { value: string };
-  } = form;
-
   if (!email?.trim()) {
     result.message = "All fields are required";
+
+    return result;
+  }
+
+  const { default: isEmailValidRegex } = await import(
+    "@/helpers/emailFormateValidation"
+  );
+
+  const valid = isEmailValidRegex(email);
+
+  if (!valid) {
+    result.message = "Please enter a valid email address";
 
     return result;
   }
@@ -37,61 +40,66 @@ const validation = (
   return result;
 };
 
+type SubmissionType = {
+  e: FormEvent<HTMLFormElement>;
+  isSubmitting: Boolean;
+  setIsSubmitting: Function;
+  email: string;
+};
+
 const handleSubmit = async ({
   e,
   isSubmitting,
   setIsSubmitting,
-}: {
-  e: FormEvent<HTMLFormElement>;
-  isSubmitting: Boolean;
-  setIsSubmitting: Function;
-}) => {
+  email,
+}: SubmissionType) => {
   e.preventDefault();
 
   if (isSubmitting) return;
 
-  const form = e.target as HTMLFormElement;
-
-  const { status, message } = validation(form);
+  const { status, message } = await validation(email);
 
   if (!status) {
-    message && alert(message);
+    if (message) {
+      const { default: Toast } = await import("@/components/Toast");
+
+      Toast.fire({
+        icon: "error",
+        title: message,
+      });
+    }
+
     return;
   }
 
-  function isAppwriteException(error: unknown): error is AppwriteException {
-    return error instanceof AppwriteException;
-  }
+  const { default: Toast } = await import("@/components/Toast");
 
   try {
     setIsSubmitting(true);
 
-    const {
-      email: { value: email },
-    }: {
-      [key: string]: { value: string };
-    } = form;
+    const actionCodeSettings = {
+      url: `${window.location.origin}/verify-email`,
+      handleCodeInApp: true,
+    };
 
-    const { account } = await import("@/appwrite/appwrite-config");
-    const { ID } = await import("appwrite");
+    const { sendSignInLinkToEmail } = await import("firebase/auth");
+    const { auth } = await import("@/firebase/firebase-config");
 
-    const origin = location.origin;
+    await sendSignInLinkToEmail(auth, email, actionCodeSettings);
 
-    await account.createMagicURLSession(
-      ID.unique(),
-      email,
-      `${origin}/verification`
-    );
+    window.localStorage.setItem("emailForSignIn", email);
 
-    alert("A magic link has been sent to your email. Please check your inbox.");
+    Toast.fire({
+      icon: "success",
+      html: "<p><strong>Link Successfully Sent</strong><br/><small>We might fall into the Spam folder:(</small></p>",
+    });
   } catch (error) {
-    if (isAppwriteException(error)) {
-      // The error is of type AppwriteException
-      alert(error.message);
-    } else {
-      // The error is of a different type
-      console.log(error);
-    }
+    console.log(error);
+
+    Toast.fire({
+      icon: "error",
+      title: "Something went wrong. Please try again",
+    });
   } finally {
     setIsSubmitting(false);
   }
@@ -99,11 +107,14 @@ const handleSubmit = async ({
 
 const SignInForm: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState<Boolean>(false);
+  const [email, setEmail] = useState<string>("");
 
   return (
     <>
       <form
-        onSubmit={(e) => handleSubmit({ e, isSubmitting, setIsSubmitting })}
+        onSubmit={(e) =>
+          handleSubmit({ e, isSubmitting, setIsSubmitting, email })
+        }
         className="space-y-6">
         <div>
           <label
@@ -114,6 +125,8 @@ const SignInForm: FC = () => {
 
           <div className="mt-1">
             <input
+              onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
+              value={email}
               id="email"
               name="email"
               autoComplete="email"
@@ -128,6 +141,8 @@ const SignInForm: FC = () => {
         <div>
           <button
             type="submit"
+            id="submit"
+            name="submit"
             disabled={!!isSubmitting}
             className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50">
             {isSubmitting && (
