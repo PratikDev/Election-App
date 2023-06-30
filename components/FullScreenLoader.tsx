@@ -1,5 +1,5 @@
 // style imports
-import style from "@/app/Page.module.css";
+import style from "./styles/FullScreenLoader.module.css";
 
 const FullScreenLoader = () => {
   return (
