@@ -3,6 +3,9 @@
 // reactjs imports
 import { useEffect } from "react";
 
+// nextjs imports
+import { useRouter } from "next/navigation";
+
 // firebase imports
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -10,6 +13,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/firebase-config";
 
 const AuthChecker = () => {
+  const router = useRouter();
+
   useEffect(() => {
     const url = new URL(window.location.href);
     const path = url.pathname;
@@ -18,12 +23,12 @@ const AuthChecker = () => {
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        if (pathList.includes(path)) {
-          location.href = "/home";
+        if ([...pathList, "/"].includes(path)) {
+          router.push("/home");
         }
       } else {
         if (!pathList.includes(path)) {
-          location.href = "/signin";
+          router.push("/signin");
         }
       }
     });
@@ -31,7 +36,7 @@ const AuthChecker = () => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [router]);
 
   return <></>;
 };
