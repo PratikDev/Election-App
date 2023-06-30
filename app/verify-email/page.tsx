@@ -1,5 +1,8 @@
 "use client";
 
+// nextjs imports
+import { useRouter } from "next/router";
+
 // components imports
 import FullScreenLoader from "@/components/FullScreenLoader";
 
@@ -8,15 +11,17 @@ import { isSignInWithEmailLink } from "firebase/auth";
 import { auth } from "@/firebase/firebase-config";
 
 export default function VerifyEmail() {
+  const router = useRouter();
+
   if (!isSignInWithEmailLink(auth, window.location.href)) {
-    location.href = "/signin";
+    router.push("/signin");
 
     return <FullScreenLoader />;
   }
 
   async function signin() {
-    let emailFromStorage = window.localStorage.getItem("emailForSignIn");
-    emailFromStorage = emailFromStorage || "";
+    const emailFromStorage =
+      window.localStorage.getItem("emailForSignIn") || "";
 
     const { signInWithEmailLink } = await import("firebase/auth");
 
@@ -50,7 +55,7 @@ export default function VerifyEmail() {
             .catch(() => {
               Swal.showValidationMessage(`Something went wrong`);
 
-              location.href = "/signin";
+              router.push("/signin");
             });
         },
       });
@@ -68,7 +73,7 @@ export default function VerifyEmail() {
         title: "Something went wrong",
       });
 
-      location.href = "/signin";
+      router.push("/signin");
     }
   }
 
