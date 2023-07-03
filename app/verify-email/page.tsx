@@ -1,7 +1,7 @@
 "use client";
 
 // nextjs imports
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 // components imports
 import FullScreenLoader from "@/components/FullScreenLoader";

@@ -16,12 +16,12 @@ const AuthChecker = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const path = url.pathname;
-
-    const pathList = ["/signin", "/verify-email"];
-
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      const url = new URL(window.location.href);
+      const path = url.pathname;
+
+      const pathList = ["/signin", "/verify-email"];
+
       if (user) {
         if ([...pathList, "/"].includes(path)) {
           router.push("/home");
