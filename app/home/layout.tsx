@@ -1,4 +1,5 @@
 import SideBar from "@/components/Home/SideBar/SideBar";
+import { ReactNode } from "react";
 
 export const metadata = {
   title: "The Election App - Home",
@@ -8,13 +9,7 @@ export const metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
-  return (
-    <html lang="en">
-      <body className="bg-gray-100 dark:bg-gray-900 dark:text-white">
-        <SideBar>{children}</SideBar>
-      </body>
-    </html>
-  );
+  return <SideBar>{children}</SideBar>
 }

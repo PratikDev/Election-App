@@ -427,7 +427,7 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
 };
 
 const CreateButton: FC = () => {
-  const [isShowing, setIsShowing] = useState<Boolean>(true);
+  const [isShowing, setIsShowing] = useState<Boolean>(false);
 
   return (
     <>
