@@ -1,6 +1,9 @@
 // style imports
 import "@/styles/globals.css";
 
+// nextjs imports
+import {cookies} from "next/headers";
+
 // auth checker component import
 import AuthChecker from "@/components/ClientComps/AuthChecker";
 
@@ -14,10 +17,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const theme = cookies().get("theme");
+
   return (
-    <html lang="en">
+    <html lang="en" className={theme?.value ?? `dark`}>
       <body>
         <AuthChecker />
+        
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white">
           {children}
         </div>
