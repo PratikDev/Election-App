@@ -30,7 +30,7 @@ const menuLinks = [
   },
   {
     name: "Elections",
-    href: "/elections",
+    href: "/home/elections",
     icon: (
       <svg
         aria-hidden="true"
@@ -44,7 +44,7 @@ const menuLinks = [
   },
   {
     name: "Participate",
-    href: "/participate",
+    href: "/home/participate",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@ const menuLinks = [
   },
   {
     name: "Profile",
-    href: "/profile",
+    href: "/home/profile",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@ const menuLinks = [
   },
   {
     name: "Settings",
-    href: "/settings",
+    href: "/home/settings",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
