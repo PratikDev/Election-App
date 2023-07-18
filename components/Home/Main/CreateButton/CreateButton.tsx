@@ -1,15 +1,8 @@
 "use client";
 
-// react imports
-import { Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
-
-// helper component imports
 import Question from "@/components/Helpers/Question";
-
-// component imports
+import { Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
 import DropableTextarea from "./DropableTextarea";
-
-// interfaces imports
 import formDataType from "./shared_types/interfaces";
 
 function handleModalToggle(setIsShowing: Dispatch<SetStateAction<Boolean>>) {
@@ -168,7 +161,8 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
           handleModalToggle(setIsShowing);
         }
       }}
-      className="clickable grid place-items-center fixed top-0 left-0 z-20 w-screen h-screen bg-black/25 backdrop-blur-sm text-gray-900">
+      className="clickable grid place-items-center fixed top-0 left-0 z-20 w-screen h-screen bg-black/25 backdrop-blur-sm text-gray-900"
+    >
       <div
         className="flex
       flex-col
@@ -186,7 +180,8 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
       dark:text-white
       shadow-lg
       p-4
-      px-6">
+      px-6"
+      >
         <div>
           <h1 className="text-xl sm:text-2xl font-medium">
             Create Your Election
@@ -195,11 +190,13 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-4 mt-3 w-100">
+          className="flex flex-col gap-4 mt-3 w-100"
+        >
           <div>
             <label
               htmlFor="title"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               Election Title*
             </label>
 
@@ -238,7 +235,8 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
           <div>
             <label
               htmlFor="description"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               Election Description*
             </label>
 
@@ -310,7 +308,8 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
                           after:rounded-full
                           after:h-4
                           after:w-4
-                          after:transition-all"></div>
+                          after:transition-all"
+                ></div>
 
                 <div className="flex items-center gap-1">
                   <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -367,10 +366,7 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
             </div>
           </div>
 
-          <DropableTextarea
-            setFormData={setFormData}
-            onChange={handleChange}
-          />
+          <DropableTextarea setFormData={setFormData} onChange={handleChange} />
 
           <div>
             <button
@@ -393,17 +389,17 @@ const Modal: FC<{ setIsShowing: Dispatch<SetStateAction<Boolean>> }> = ({
               px-3
               py-1.5
               rounded-md
-              float-right">
+              float-right"
+            >
               {creatingElection && (
-                <div
-                  role="status"
-                  className="flex">
+                <div role="status" className="flex">
                   <svg
                     aria-hidden="true"
                     className="inline w-4 h-4 text-gray-500 animate-spin fill-gray-100"
                     viewBox="0 0 100 101"
                     fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                       fill="currentColor"
@@ -444,12 +440,14 @@ const CreateButton: FC = () => {
                     px-3
                     py-1.5
                     bg-indigo-600
-                    hover:bg-indigo-700">
+                    hover:bg-indigo-700"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 448 512"
           fill="currentColor"
-          className="w-4 h-4">
+          className="w-4 h-4"
+        >
           <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
         </svg>
         <span>Create Election</span>

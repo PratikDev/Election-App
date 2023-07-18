@@ -1,16 +1,9 @@
 "use client";
 
-// reactjs imports
-import { useEffect } from "react";
-
-// nextjs imports
-import { useRouter } from "next/navigation";
-
-// firebase imports
-import { onAuthStateChanged } from "firebase/auth";
-
-// firebase config imports
 import { auth } from "@/firebase/firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const AuthChecker = () => {
   const router = useRouter();

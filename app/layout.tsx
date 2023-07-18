@@ -1,11 +1,6 @@
-// style imports
-import "@/styles/globals.css";
-
-// nextjs imports
-import { cookies } from "next/headers";
-
-// auth checker component import
 import AuthChecker from "@/components/ClientComps/AuthChecker";
+import "@/styles/globals.css";
+import { cookies } from "next/headers";
 
 export const metadata = {
   title: "The Election App",

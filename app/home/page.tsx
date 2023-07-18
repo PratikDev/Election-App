@@ -1,14 +1,7 @@
-// reactjs imports
-import { FC } from "react";
-
-// nextjs imports
-import Image from "next/image";
-
-// components imports
-import CreateButton from "@/components/Home/Main/CreateButton/CreateButton";
-
-// helper components imports
 import Question from "@/components/Helpers/Question";
+import CreateButton from "@/components/Home/Main/CreateButton/CreateButton";
+import Image from "next/image";
+import { FC } from "react";
 
 const Page: FC = () => {
   return (
@@ -37,7 +30,8 @@ const Page: FC = () => {
             dark:text-gray-200
             text-lg
             text-center
-            font-medium">
+            font-medium"
+            >
               Create a new Election or Use a Template
             </h1>
 
@@ -45,12 +39,14 @@ const Page: FC = () => {
               className="flex
             gap-1
             justify-center
-            items-center">
+            items-center"
+            >
               <p
                 className="text-gray-400
               dark:text-gray-600
               text-sm
-              font-normal">
+              font-normal"
+              >
                 You can make your elections private by adding a voters&apos;
                 emails list.
               </p>
@@ -80,12 +76,14 @@ const Page: FC = () => {
               py-1.5
               bg-gray-300
               dark:bg-gray-400
-              hover:bg-gray-400/75">
+              hover:bg-gray-400/75"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 512 512"
                   fill="currentColor"
-                  className="w-4 h-4">
+                  className="w-4 h-4"
+                >
                   <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
                 </svg>
                 <span>Templates</span>

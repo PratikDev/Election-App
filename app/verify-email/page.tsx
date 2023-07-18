@@ -1,14 +1,9 @@
 "use client";
 
-// nextjs imports
-import { useRouter } from "next/navigation";
-
-// components imports
 import FullScreenLoader from "@/components/FullScreenLoader";
-
-// firebase imports
-import { isSignInWithEmailLink } from "firebase/auth";
 import { auth } from "@/firebase/firebase-config";
+import { isSignInWithEmailLink } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 export default function VerifyEmail() {
   const router = useRouter();

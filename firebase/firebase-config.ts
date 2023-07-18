@@ -1,10 +1,5 @@
-// initialization import
 import { initializeApp } from "firebase/app";
-
-// import firebase authentication
 import { getAuth } from "firebase/auth";
-
-// import firebase firestore
 import { getFirestore } from "firebase/firestore/lite";
 
 // Firebase configuration
@@ -17,13 +12,8 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_appId,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
-
-// Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
-export {app, auth, db};
+export { app, auth, db };

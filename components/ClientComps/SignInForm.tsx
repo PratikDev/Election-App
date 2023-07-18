@@ -1,10 +1,7 @@
 "use client";
 
-// reactjs imports
-import { FC, FormEvent, useState } from "react";
-
-// components imports
 import Spinner from "@/components/Spinner";
+import { FC, FormEvent, useState } from "react";
 
 type ValidationType = {
   status: boolean;
@@ -115,11 +112,13 @@ const SignInForm: FC = () => {
         onSubmit={(e) =>
           handleSubmit({ e, isSubmitting, setIsSubmitting, email })
         }
-        className="space-y-6">
+        className="space-y-6"
+      >
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
             Email Address*
           </label>
 
@@ -144,14 +143,9 @@ const SignInForm: FC = () => {
             id="submit"
             name="submit"
             disabled={!!isSubmitting}
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50">
-            {isSubmitting && (
-              <Spinner
-                size={4}
-                srText="Creating"
-                ml
-              />
-            )}
+            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+          >
+            {isSubmitting && <Spinner size={4} srText="Creating" ml />}
             Sign In
           </button>
 

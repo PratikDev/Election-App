@@ -1,4 +1,4 @@
-// react imports
+import Question from "@/components/Helpers/Question";
 import {
   ChangeEvent,
   Dispatch,
@@ -7,11 +7,6 @@ import {
   SetStateAction,
   useState,
 } from "react";
-
-// helper components imports
-import Question from "@/components/Helpers/Question";
-
-// interfaces imports
 import formDataType from "./shared_types/interfaces";
 
 interface Props {
@@ -166,7 +161,8 @@ const DropableTextarea: FC<Props> = ({ setFormData, onChange }) => {
       <div>
         <label
           htmlFor="voters"
-          className="flex items-center gap-1 text-sm font-medium text-gray-700 dark:text-gray-300">
+          className="flex items-center gap-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
           <span>Type Voters Emails or Drag & Drop a CSV file (Max 1000)*</span>
 
           <Question
@@ -183,13 +179,15 @@ const DropableTextarea: FC<Props> = ({ setFormData, onChange }) => {
           {uploadingEmails && (
             <div
               role="status"
-              className="absolute z-10 top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
+              className="absolute z-10 top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]"
+            >
               <svg
                 aria-hidden="true"
                 className="inline w-8 h-8 animate-spin text-gray-400 fill-indigo-600"
                 viewBox="0 0 100 101"
                 fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                   fill="currentColor"
@@ -248,7 +246,8 @@ const DropableTextarea: FC<Props> = ({ setFormData, onChange }) => {
             height="1em"
             className="inline mr-1 -mt-1"
             fill="currentColor"
-            viewBox="0 0 512 512">
+            viewBox="0 0 512 512"
+          >
             <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
           </svg>
           Please know that the Election will be invalid until you set the
