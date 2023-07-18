@@ -1,3 +1,4 @@
+import ElectionItem from "@/skeletons/components/election-item";
 import { FC } from "react";
 
 const data = [
@@ -66,46 +67,47 @@ const elections: FC = () => {
       <table cellPadding={20} className="w-full">
         <thead className="capitalize font-extralight text-sm text-center">
           <tr>
-            <td colSpan={2} className="text-left">
+            <td colSpan={2} className="text-left py-2 pb-1">
               name
             </td>
-            <td>status</td>
-            <td>created</td>
+            <td className="py-2 pb-1">status</td>
+            <td className="py-2 pb-1">created</td>
           </tr>
         </thead>
 
         <tbody className="rounded-xl">
           {data.map((election) => (
-            <tr
-              key={election.id}
-              className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-200/25 dark:hover:bg-gray-800/25"
-            >
-              <td colSpan={2} className="text-sm">
-                <h3 className="font-semibold capitalize text-base dark:text-white truncate w-3/4 max-w-xl">
-                  {election.title}
-                </h3>
+            // <tr
+            //   key={election.id}
+            //   className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-200/25 dark:hover:bg-gray-800/25"
+            // >
+            //   <td colSpan={2} className="text-sm">
+            //     <h3 className="font-semibold capitalize text-base dark:text-white truncate w-3/4 max-w-xl">
+            //       {election.title}
+            //     </h3>
 
-                <p className="text-xs font-light text-gray-500 dark:text-white truncate w-3/4 max-w-xl">
-                  {election.desc}
-                </p>
-              </td>
+            //     <p className="text-xs font-light text-gray-500 dark:text-gray-400 truncate w-3/4 max-w-xl">
+            //       {election.desc}
+            //     </p>
+            //   </td>
 
-              <td className="text-sm text-center capitalize">
-                <span
-                  className={`px-2.5 py-1 rounded-full ${
-                    election.status === "active"
-                      ? "bg-green-100 text-green-500 border border-green-400 dark:border-0"
-                      : "bg-red-100 text-red-500 border border-red-400 dark:border-0"
-                  }`}
-                >
-                  {election.status}
-                </span>
-              </td>
+            //   <td className="text-sm text-center capitalize">
+            //     <span
+            //       className={`px-2.5 py-1 rounded-full ${
+            //         election.status === "active"
+            //           ? "bg-green-100 text-green-500 border border-green-400 dark:border-0"
+            //           : "bg-red-100 text-red-500 border border-red-400 dark:border-0"
+            //       }`}
+            //     >
+            //       {election.status}
+            //     </span>
+            //   </td>
 
-              <td className="text-sm text-center font-medium text-gray-600 dark:text-gray-400">
-                {election.created}
-              </td>
-            </tr>
+            //   <td className="text-sm text-center font-medium text-gray-600 dark:text-gray-400">
+            //     {election.created}
+            //   </td>
+            // </tr>
+            <ElectionItem />
           ))}
         </tbody>
       </table>
